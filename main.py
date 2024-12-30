@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
 import csv
+from split_text import split_text
 
 movies_data = pd.read_csv("movies.csv")
 ratings_data = pd.read_csv("ratings.csv")
@@ -60,5 +61,26 @@ def get_avg_per_user(ratings_data): # input is the ratings data, output is the a
 plt.scatter(films_rated[:], avg_rg_per_user[:], s = 3)
 plt.xlabel("Number of rated films")
 plt.ylabel("Rating")
+plt.savefig("RatAvg_vs_Nfilms.png")
 
-plt.show()
+def get_movie_types(movies_data):
+    genres = movies_data.loc[:,"genres"]
+    print(genres[0])
+    g = split_text(genres[0], "|")
+    print(g)
+    n_movies = len(genres)
+    genre = {}
+
+    for i in range(len(genres)):
+  
+        keys = i
+        values = split_text(genres[i], "|")
+
+        if keys not in genre:  # Ensure the key exists in the dictionary
+            genre[keys] = []  # Initialize as an empty list
+        genre[keys].append(values)  # Append the value to the corresponding list
+    
+    genre[keys] = values
+    
+    
+m = get_movie_types(movies_data)
